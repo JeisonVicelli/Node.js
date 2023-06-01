@@ -1,7 +1,7 @@
 const criar = document.getElementById("criar");
 
-criar.addEventListener("click", (e) => {
-  e.preventDefault();
+criar.addEventListener("click", (evento) => {
+  evento.preventDefault();
 
   //Tratando os dados
   const id = document.querySelector('input[name="id"]');
@@ -39,14 +39,14 @@ criar.addEventListener("click", (e) => {
       return;
     }
   }
-  document.getElementById("res").innerHTML = "Funcionou";
+  
 
-  const formProduto = document.getElementById("");
+  const formProduto = document.getElementById("Produto");
   const formProdutoPronto = new FormData(formProduto); // obtém os dados do formulário
 
   const json = JSON.stringify(Object.fromEntries(formProdutoPronto)); // transforma os dados do formulário em um objeto JSON
 
-  fetch("http://localhost:8081/produto", {
+  fetch("http://localhost:8081/produtos", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

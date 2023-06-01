@@ -38,7 +38,6 @@ criar.addEventListener("click", (evento) => {
       return;
     }
   }
-  document.getElementById("res").innerHTML = "Funcionou";
 
   const formCliente = document.getElementById("Cliente");
   const formClientePronto = new FormData(formCliente);

@@ -1,88 +1,75 @@
-const buscarPorId = document.forms.buscarPorId;
-buscarPorId.addEventListener('buscar');
-buscarPorId.addEventListener('click',(evento) =>{
-    evento.preventDefault();
-
-    const{ id } = buscarPorId;
-    
-    if(!id.value){
-        document.getElementById('res').innerHTML = 'Insira Id do Cliente.';
-        id.focus();
-        return;  
-    }
-fetch(`http://localhost:8081/consultar-clientes/${id.value}`)
-.then((response) => {
-    if (!response.ok) {
-      throw new Error("Erro na requisição. Verifique o URL ou a resposta do servidor.");
-    }
-    return response.json();
-  })
-  .then((cliente) => {
-    if (!cliente || cliente.length === 0) {
-      document.getElementById("resp").textContent = "Cliente não encontrado.";
-      return;
-    }
-
-    const formsCliente = document.forms.Cliente;
-
-    formsCliente.id.value = cliente.id;    
-    formsCliente.nome.value = cliente.nome;                                                                                       ome.
-    formsCliente.CPF.value = cliente.CPF;
-    formsCliente.Telefone.value = cliente.Telefone;
-    formsCliente.DataNascimento.value = cliente.DataNascimento;
-
-
-  });
-});
-const formsUm = document.forms.formsUm;
-formsUm.addEventListener("submit", (evento) => {
+const formsBuscar = document.getElementById('formsBuscar');
+formsBuscar.addEventListener("click", (evento) => {
   evento.preventDefault();
-  const { idCliente } = formsUm;
+  const id = document.getElementById('id');
 
-  if (!idCliente.value) {
+  if (!id.value) {
     document.getElementById("resp").textContent =
       "Insira o ID para continuar...";
-    idCliente.focus();
+    id.focus();
     return;
   }
 
-  
-const salvar = document.getElementById("salvar");
-const formUpdate = document.forms.Cliente;
+  fetch(`http://localhost:8081/clientes-consulta/${id.value}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          "Erro na requisição. Verifique o URL ou a resposta do servidor."
+        );
+      }
+      return response.json();
+    })
+    .then((cliente) => {
+      // Verificando se cliente existe
+      if (!cliente || cliente.length === 0) {
+        document.getElementById("resp").textContent = "Cliente não encontrado.";
+        return;
+      }
+      const formsDois = document.forms.Cliente;
 
-formUpdate.addEventListener("click", (event) => {
+      formsDois.id.value = cliente.id;
+      formsDois.nome.value = cliente.Nome;
+      formsDois.CPF.value = cliente.CPF;
+      formsDois.telefone.value = cliente.Telefone;
+      formsDois.dataNascimento.value = cliente.DataNascimento;
+    })
+    .catch((error) => console.log(error));
+});
+
+
+
+const alterar = document.getElementById("alterar");
+const formAlterar = document.forms.Cliente;
+
+formAlterar.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const { id, Nome, CPF, Telefone, DataNascimento } = formUpdate;
+  const {id , CPF, nome, telefone, dataNascimento } = formAlterar;
 
-  if (!id.value || !Nome.value || !CPF.value || !Telefone.value || !DataNascimento.value) {
-    if (!id.value) {
-      document.getElementById("resp").innerHTML = "Insira o ID do cliente";
-      id.focus();
-      return;
-    } else if (!Nome.value) {
-      document.getElementById("resp").innerHTML = "Insira o nome!";
-      Nome.focus();
-      return;      
-    }if(!CPF.value){
+  if (!CPF.value || !nome.value || !telefone.value || !dataNascimento.value) {
+
+    if (!CPF.value) {
       document.getElementById("resp").innerHTML = "Insira o CPF!";
-      CPF.focus();       
-      return;    
-      }if(!Telefone.value){
-        document.getElementById("resp").innerHTML = "Insira o telefone!";
-        Telefone.focus();
-        return; 
-    } else {
-      document.getElementById("resp").innerHTML = "Insira o data de nascimento!";
-      DataNascimento.focus();      
+      CPF.focus();
       return;
-      
+    } else if (!telefone.value) {
+      document.getElementById("resp").innerHTML = "Insira o Telefone!";
+      telefone.focus();
+      return;
+    } else if (!dataNascimento.value) {
+      document.getElementById("resp").innerHTML = "Insira o DataNascimento!";
+      dataNascimento.focus();
+      return;
+    } else {
+      document.getElementById("resp").innerHTML = "Insira o nome!";
+      nome.focus();
+      return;
     }
   }
 
-  const formDataUpdate = new FormData(formUpdate); // obtém os dados do formulário
+  const formularioAlterado = new FormData(formAlterar); // obtém os dados do formulário
 
-  const json = JSON.stringify(Object.fromEntries(formDataUpdate)); // transforma os dados do formulário em um objeto JSON
+  const json = JSON.stringify(Object.fromEntries(formularioAlterado)); // transforma os dados do formulário em um objeto JSON
 
   fetch(`http://localhost:8081/clientes/${id.value}`, {
     method: "POST",
@@ -96,15 +83,15 @@ formUpdate.addEventListener("click", (event) => {
       console.log(data); // imprime a resposta do servidor no console do navegador
       const inputs = document.querySelectorAll("input");
       inputs.forEach((input) => (input.value = ""));
-      document.querySelector('input[name="idCliente"]').focus();
+      document.querySelector('input[id="id"]').focus();
       let resp = document.getElementById("resp");
       resp.innerHTML = "Cliente alterado com sucesso!";
       setTimeout(() => {
         resp.style.display = "none";
-      }, 5000); // colocando tempo de visualização de 5000 milissegundos (5 segundos)
-})
+      },10000); // colocando tempo de visualização de 5000 milissegundos (5 segundos)
+    })
     .catch((error) => {
-      //console.error(error); // imprime o erro no console do navegador
+      console.error(error); // imprime o erro no console do navegador
       document.getElementById("resp").innerHTML = "Erro ao alterar cliente";
     });
-  
+});

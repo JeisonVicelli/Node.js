@@ -7,6 +7,12 @@ module.exports = {
         return res.json(clientesList);
     },
 
+    async readOne(req, res) {
+      const { id } = req.params;
+      const cliente = await Clientes.findOne({ id: id });
+      return res.json(cliente);
+    },
+
     async create(req, res){
         const{id, Nome, CPF, Telefone, DataNascimento} = req.body;
         if(!Nome && !CPF){
@@ -24,7 +30,7 @@ module.exports = {
     },
     async delete(req, res){
         const { id } = req.params;
-        const clienteDeletado = await Clientes.findOneAndDelete({_id : id});
+        const clienteDeletado = await Clientes.findOneAndDelete({id : id});
         if(clienteDeletado){
             return res.json(clienteDeletado);
         }
@@ -33,7 +39,7 @@ module.exports = {
     async update(req, res){
         const { id } = req.params;
         const {Nome, CPF, Telefone, DataNascimento} = req.body;
-        const cliente = await Clientes.findOne({_id : id});
+        const cliente = await Clientes.findOne({id : id});
 
         cliente.id = id,
         cliente.Nome = Nome,

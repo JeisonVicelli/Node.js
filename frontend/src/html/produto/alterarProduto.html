@@ -9,12 +9,16 @@
   <body>
     <h2>Alterar Produto</h2>
 
-    <div id="buscaPorId">
+    <form id="formsBuscar">
       <label for="Id">Insira Id que deseja alterar:</label><br />
       <input type="number" id="id" placeholder="Insira o id" /><br />
       <button id="buscar">Buscar</button>
-    </div>
+    </form>
+
     <form id="Produto">
+      <label for="id">ID:</label><br />
+      <input type="number" name="id" readonly /><br />
+
       <label for="Codigo">Codigo:</label><br />
       <input type="text" name="Codigo" /><br />
 
@@ -30,9 +34,10 @@
       <button id="alterar">Alterar</button>
 
       <button>
-        <a href="../../javascript/cliente/alterarCliente.js">Voltar</a>
+        <a href="../index.html">Voltar</a>
       </button>
     </form>
     <div id="res">...</div>
+    <script src="../../javascript/produto/alterarProduto.js"></script>
   </body>
 </html>

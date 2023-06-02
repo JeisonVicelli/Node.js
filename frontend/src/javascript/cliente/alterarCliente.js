@@ -1,7 +1,7 @@
-const formsBuscar = document.getElementById('formsBuscar');
+const formsBuscar = document.getElementById("formsBuscar");
 formsBuscar.addEventListener("click", (evento) => {
   evento.preventDefault();
-  const id = document.getElementById('id');
+  const id = document.getElementById("id");
 
   if (!id.value) {
     document.getElementById("resp").textContent =
@@ -36,18 +36,15 @@ formsBuscar.addEventListener("click", (evento) => {
     .catch((error) => console.log(error));
 });
 
-
-
 const alterar = document.getElementById("alterar");
 const formAlterar = document.forms.Cliente;
 
 formAlterar.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const {id , CPF, nome, telefone, dataNascimento } = formAlterar;
+  const { id, CPF, nome, telefone, dataNascimento } = formAlterar;
 
   if (!CPF.value || !nome.value || !telefone.value || !dataNascimento.value) {
-
     if (!CPF.value) {
       document.getElementById("resp").innerHTML = "Insira o CPF!";
       CPF.focus();
@@ -88,7 +85,7 @@ formAlterar.addEventListener("submit", (event) => {
       resp.innerHTML = "Cliente alterado com sucesso!";
       setTimeout(() => {
         resp.style.display = "none";
-      },10000); // colocando tempo de visualização de 5000 milissegundos (5 segundos)
+      }, 10000); // colocando tempo de visualização de 5000 milissegundos (5 segundos)
     })
     .catch((error) => {
       console.error(error); // imprime o erro no console do navegador

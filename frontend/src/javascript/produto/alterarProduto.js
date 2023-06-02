@@ -28,10 +28,10 @@ formsBuscar.addEventListener("click", (evento) => {
       const formsDois = document.forms.Cliente;
 
       formsDois.id.value = produto.id;
-      formsDois.Codigo.value = produto.Codigo;
-      formsDois.Nome.value = produto.Nome;
-      formsDois.Marca.value = produto.Marca;
-      formsDois.Valor.value = produto.Valor;
+      formsDois.codigo.value = produto.Codigo;
+      formsDois.nome.value = produto.Nome;
+      formsDois.marca.value = produto.Marca;
+      formsDois.valor.value = produto.Valor;
     })
     .catch((error) => console.log(error));
 });

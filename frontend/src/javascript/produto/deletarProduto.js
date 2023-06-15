@@ -1,4 +1,4 @@
-const deleta = document.forms.formDelete;
+const deleta = document.forms.formDeletar;
 
 deleta.addEventListener("submit", (evento) => {
   evento.preventDefault();
@@ -6,7 +6,7 @@ deleta.addEventListener("submit", (evento) => {
   const { id } = deleta;
   const json = { id: id.value };
 
-  fetch(`http://localhost:8081/clientes/${id.value}`, {
+  fetch(`http://localhost:8081/produtos/${id.value}`, {
     method: "delete",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ deleta.addEventListener("submit", (evento) => {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Erro ao deletar cliente");
+        throw new Error("Erro ao deletar produto");
       }
       return response.json();
     })
@@ -24,7 +24,10 @@ deleta.addEventListener("submit", (evento) => {
       id.value = "";
       id.focus();
       document.getElementById("resp").innerHTML =
-        "Cliente deletado com sucesso!";
+        "Produto deletado com sucesso!";
+      setTimeout(() => {
+        document.getElementById("resp").innerHTML = "";
+      }, 5000);
     })
     .catch((error) => {
       console.log(error);

@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Cadastro Cliente</h2>
 
+    <form id="Cliente">
+      <label for="Id">Id:</label><br />
+      <input type="number" name="id" /><br />
 
-<form id="Cliente">
-  <label for="Id">Id:</label><br>
-  <input type="number" name="id"><br>
+      <label for="nome">Nome:</label><br />
+      <input type="text" name="Nome" /><br />
 
-  <label for="nome">Nome:</label><br>
-  <input type="text" name="Nome"><br>
+      <label for="CPF">CPF:</label><br />
+      <input type="number" name="CPF" /><br />
 
-  <label for="CPF">CPF:</label><br>
-  <input type="number" name="CPF"><br>
+      <label for="Telefone">Telefone:</label><br />
+      <input type="number" name="Telefone" /><br />
 
-  <label for="Telefone">Telefone:</label><br>
-  <input type="number" name="Telefone"><br>
+      <label for="DataNascimento">Data de Nascimento:</label><br />
+      <input type="date" name="DataNascimento" /><br /><br />
 
-  <label for="DataNascimento">Data de Nascimento:</label><br>
-  <input type="date" name="DataNascimento"><br><br>
+      <button id="criar">Criar</button>
+      <input type="reset" value=" Recupera" />
+      <button><a href="../index.html">Voltar</a></button>
+    </form>
+    <div id="res">...</div>
 
-  <button id="criar">Criar</button>
-  <input type="reset" value=" Recupera">
-  <button><a href="../index.html">Voltar</a></button>
-</form>
-<div id="res">...</div>
-
-
-<script src="../../javascript/cliente/cadastroCliente.js"></script>
-</body>
+    <script src="../../javascript/cliente/cadastroCliente.js"></script>
+  </body>
 </html>

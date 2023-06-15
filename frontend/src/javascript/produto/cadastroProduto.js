@@ -46,7 +46,7 @@ criar.addEventListener("click", (evento) => {
 
   const json = JSON.stringify(Object.fromEntries(formProdutoPronto)); // transforma os dados do formulário em um objeto JSON
 
-  fetch("http://localhost:8081/produtos", {
+  fetch("http://localhost:8081/produtos ", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

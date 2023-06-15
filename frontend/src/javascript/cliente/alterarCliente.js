@@ -1,5 +1,5 @@
 const formsBuscar = document.getElementById("formsBuscar");
-formsBuscar.addEventListener("click", (evento) => {
+formsBuscar.addEventListener("submit", (evento) => {
   evento.preventDefault();
   const id = document.getElementById("id");
 
@@ -25,22 +25,23 @@ formsBuscar.addEventListener("click", (evento) => {
         document.getElementById("resp").textContent = "Cliente não encontrado.";
         return;
       }
-      const formsDois = document.forms.Cliente;
+      const formAlterar = document.forms.Cliente;
 
-      formsDois.id.value = cliente.id;
-      formsDois.nome.value = cliente.Nome;
-      formsDois.CPF.value = cliente.CPF;
-      formsDois.telefone.value = cliente.Telefone;
-      formsDois.dataNascimento.value = cliente.DataNascimento;
+      formAlterar.id.value = cliente.id;
+      formAlterar.nome.value = cliente.Nome;
+      formAlterar.CPF.value = cliente.CPF;
+      formAlterar.telefone.value = cliente.Telefone;
+      formAlterar.dataNascimento.value = cliente.DataNascimento;
     })
     .catch((error) => console.log(error));
 });
 
 const alterar = document.getElementById("alterar");
-const formAlterar = document.forms.Cliente;
 
-formAlterar.addEventListener("submit", (event) => {
+alterar.addEventListener("click", (event) => {
   event.preventDefault();
+
+  const formAlterar = document.forms.Cliente;
 
   const { id, CPF, nome, telefone, dataNascimento } = formAlterar;
 
@@ -64,12 +65,18 @@ formAlterar.addEventListener("submit", (event) => {
     }
   }
 
-  const formularioAlterado = new FormData(formAlterar); // obtém os dados do formulário
+  const FormData = new FormData(formAlterar); // obtém os dados do formulário
 
-  const json = JSON.stringify(Object.fromEntries(formularioAlterado)); // transforma os dados do formulário em um objeto JSON
+  const json = JSON.stringify({
+    id: id.value,
+    Nome: nome.value,
+    CPF: CPF.value,
+    Telefone: telefone.value,
+    DataNascimento: dataNascimento.value,
+  }); // transforma os dados do formulário em um objeto JSON
 
   fetch(`http://localhost:8081/clientes/${id.value}`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
@@ -78,9 +85,8 @@ formAlterar.addEventListener("submit", (event) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data); // imprime a resposta do servidor no console do navegador
-      const inputs = document.querySelectorAll("input");
-      inputs.forEach((input) => (input.value = ""));
-      document.querySelector('input[id="id"]').focus();
+      formAlterar.reset();
+      document.getElementById("id").focus();
       let resp = document.getElementById("resp");
       resp.innerHTML = "Cliente alterado com sucesso!";
       setTimeout(() => {

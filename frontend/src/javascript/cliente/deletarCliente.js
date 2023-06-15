@@ -25,7 +25,11 @@ deleta.addEventListener("submit", (evento) => {
       id.focus();
       document.getElementById("resp").innerHTML =
         "Cliente deletado com sucesso!";
+      setTimeout(() => {
+        document.getElementById("resp").innerHTML = "";
+      }, 5000); // Exibir a mensagem por 5 segundos (5000 milissegundos)
     })
+
     .catch((error) => {
       console.log(error);
       document.getElementById("resp").innerHTML = "Erro ao deletar!";
